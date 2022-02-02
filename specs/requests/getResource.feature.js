@@ -14,7 +14,7 @@ afterEach(async () => {
   await factory.cleanUp()
 })
 
-describe.only('Example of a request spec', () => {
+describe('Example of a request spec', () => {
   describe('GET /api/resource', () => {
 
     beforeEach(async () => {

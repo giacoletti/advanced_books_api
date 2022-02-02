@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "",
+    "username": "api_user",
+    "password": "password",
     "database": "advanced_books_api_development",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operationAliases": false
   },
   "test": {
-    "username": "postgres",
-    "password": "",
+    "username": "api_user",
+    "password": "password",
     "database": "advanced_books_api_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
