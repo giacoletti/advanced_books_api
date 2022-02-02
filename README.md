@@ -21,6 +21,10 @@ Scaffolded using [NodeApiGenerator](https://www.npmjs.com/package/node-api-gener
 
 [MIT](LICENSE)
 
+## Acknowledgements
+
+- [Thomas](https://github.com/tochman)
+
 # Notes
 
 Once you've generated your application, cd'ed (is that a verb?) into the project folder and installed the dependencies, you need to run a few commands to get the database started.
