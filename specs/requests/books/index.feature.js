@@ -6,10 +6,10 @@ describe("GET /api/books", () => {
   before((done) => {
     request = serverConfig(done);
   });
-  
+
   afterEach(async () => {
-    await factory.cleanUp()
-  })
+    await factory.cleanUp();
+  });
 
   beforeEach(async () => {
     // create your factories here

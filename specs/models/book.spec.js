@@ -1,4 +1,4 @@
-const { expect, factory, pending, Models } = require("../helpers");
+const { expect, factory, Models } = require("../helpers");
 const { Association, DataTypes } = require("sequelize");
 const { Book } = Models;
 
@@ -14,7 +14,7 @@ describe("Book", () => {
       expect(tableName).to.equal("Books");
     });
 
-    describe("is expected to have property:", () => {
+    describe("is expected to have properties:", () => {
       it("title:STRING", () => {
         expect(tableAttributes).to.have.own
           .property("title")
@@ -54,7 +54,7 @@ describe("Book", () => {
     });
 
     describe("is expected to have association accessors", () => {
-      it("for the author association", () => {
+      it("for the Author association", () => {
         expect(subject).to
           .respondTo("getAuthor")
           .and.respondTo("setAuthor")
