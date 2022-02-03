@@ -26,9 +26,8 @@ describe("Author", () => {
     describe("is expected to have associations", () => {
       it("Book:HasMany", () => {
         expect(associations).to.have.own
-          .property("book")
-          .to.be.instanceOf(Association.HasMany)
-          .that.has.property("foreignKey", "BookId");
+          .property("books")
+          .to.be.instanceOf(Association.HasMany);
       });
     });
   });
@@ -49,9 +48,7 @@ describe("Author", () => {
     describe("is expected to have association accessors", () => {
       it("for the Book association", () => {
         expect(subject).to
-          .respondTo("getBook")
-          .and.respondTo("setBook")
-          .and.respondTo("createBook");
+          .respondTo("createBook");
       });
     });
   });
