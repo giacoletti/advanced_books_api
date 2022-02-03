@@ -2,16 +2,17 @@ const { factory, expect, serverConfig } = require("../../helpers");
 
 let request, response, book;
 
-before((done) => {
-  request = serverConfig(done);
-});
-
-beforeEach(async () => {
-  book = await factory.create("Book", { title: "Fun With Sequelize" });
-});
-
 describe("GET /api/books/:id", () => {
+  before((done) => {
+    request = serverConfig(done);
+  });
+  
+  afterEach(async () => {
+    await factory.cleanUp();
+  });
+
   beforeEach(async () => {
+    book = await factory.create("Book", { title: "Fun With Sequelize" });
     response = await request.get(`/api/books/${book.id}`);
   });
 

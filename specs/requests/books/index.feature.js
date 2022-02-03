@@ -2,17 +2,20 @@ const { factory, expect, serverConfig } = require("../../helpers");
 
 let request, response, books;
 
-before((done) => {
-  request = serverConfig(done);
-});
-
-beforeEach(async () => {
-  // create your factories here
-  books = await factory.createMany("Book", 5, [{ title: "The Bible", author: "God" }]);
-});
-
 describe("GET /api/books", () => {
+  before((done) => {
+    request = serverConfig(done);
+  });
+  
+  afterEach(async () => {
+    await factory.cleanUp()
+  })
+
   beforeEach(async () => {
+    // create your factories here
+    books = await factory.createMany("Book", 5, [
+      { title: "The Bible", author: "God" }
+    ]);
     response = await request.get("/api/books");
   });
 
