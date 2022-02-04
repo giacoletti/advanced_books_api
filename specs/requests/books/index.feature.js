@@ -1,6 +1,6 @@
 const { factory, expect, serverConfig } = require("../../helpers");
 
-let request, response, books;
+let request, response, books, author;
 
 describe("GET /api/books", () => {
   before((done) => {
@@ -13,8 +13,9 @@ describe("GET /api/books", () => {
 
   beforeEach(async () => {
     // create your factories here
+    author = await factory.create("Author");
     books = await factory.createMany("Book", 5, [
-      { title: "The Bible", author: "God" }
+      { title: "The Bible", AuthorId: author.id }
     ]);
     response = await request.get("/api/books");
   });
@@ -28,12 +29,19 @@ describe("GET /api/books", () => {
   });
 
   describe("resource properties", () => {
-    it("is expected to include :id & :title", () => {
+    it("is expected to include :id, :title, :author.name", () => {
       const expectedJson = {
         id: books[0].id,
-        title: "The Bible"
+        title: "The Bible",
+        author: {
+          name: author.name
+        }
       };
       expect(response.body["books"][0]).to.deep.equal(expectedJson);
+    });
+
+    it('is expected to include :author', () => {
+      expect(response.body["books"][0]).to.have.own.property("author");
     });
   });
 });
