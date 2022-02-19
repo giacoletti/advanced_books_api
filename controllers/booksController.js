@@ -18,6 +18,9 @@ const booksController = {
   async show(request, response) {
     const book = await Book.findByPk(request.params.id);
     response.json({ book: book });
+  },
+  async create(request, response){
+    
   }
 };
 
