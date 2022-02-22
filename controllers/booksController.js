@@ -19,8 +19,13 @@ const booksController = {
     const book = await Book.findByPk(request.params.id);
     response.json({ book: book });
   },
-  async create(request, response){
-    
+  async create(request, response) {
+    const author = await Author.create({ name: request.body.book.author });
+    const book = await Book.create({
+      title: request.body.book.title,
+      AuthorId: author.id
+    });
+    response.json({ book: book });
   }
 };
 
