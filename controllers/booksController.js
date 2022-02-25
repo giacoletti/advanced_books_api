@@ -20,11 +20,17 @@ const booksController = {
     response.json({ book: book });
   },
   async create(request, response) {
-    const author = await Author.create({ name: request.body.book.author });
-    const book = await Book.create({
-      title: request.body.book.title,
-      AuthorId: author.id
-    });
+    const book = await Book.create(
+      {
+        title: request.body.book.title,
+        author: {
+          name: request.body.book.author
+        }
+      },
+      {
+        include: [{ association: Book.associations.author }]
+      }
+    );
     response.json({ book: book });
   }
 };
