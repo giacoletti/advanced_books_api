@@ -1,10 +1,20 @@
-const { factory, expect, serverConfig } = require("../../helpers");
+const { factory, expect, serverConfig, Models } = require("../../helpers");
 
 let request, response, book, author;
 
-xdescribe("POST /api/books", () => {
+describe("POST /api/books", () => {
   before((done) => {
     request = serverConfig(done);
+  });
+
+  after(async () => {
+    await Models.Book.destroy({
+      truncate: true
+    });
+    await Models.Author.destroy({
+      truncate: true,
+      cascade: true // allows to drop table referenced in a foreign key constraint
+    });
   });
 
   afterEach(async () => {
