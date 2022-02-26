@@ -7,7 +7,7 @@ describe("POST /api/books", () => {
     request = serverConfig(done);
   });
 
-  after(async () => {
+  afterEach(async () => {
     await Models.Book.destroy({
       truncate: true
     });
@@ -17,13 +17,13 @@ describe("POST /api/books", () => {
     });
   });
 
-  afterEach(async () => {
-    await factory.cleanUp();
-  });
-
   beforeEach(async () => {
     response = await request.post("/api/books").send({
       book: { title: "1984", author: "George Orwell" }
+    });
+    book = await Models.Book.findOne({
+      where: { title: "1984" },
+      include: [{ association: Models.Book.associations.author }]
     });
   });
 
@@ -40,13 +40,19 @@ describe("POST /api/books", () => {
   });
 
   describe("resource properties", () => {
-    xit("is expected to include :id, :title, :author.name", () => {
+    it("is expected to include :id, :title, :author.name", () => {
       const expectedJson = {
+        AuthorId: book.AuthorId,
         id: book.id,
         title: book.title,
         author: {
-          name: author.name
-        }
+          id: book.author.id,
+          name: book.author.name,
+          createdAt: book.author.createdAt.toJSON(),
+          updatedAt: book.author.updatedAt.toJSON()
+        },
+        createdAt: book.createdAt.toJSON(),
+        updatedAt: book.updatedAt.toJSON()
       };
       expect(response.body["book"]).to.deep.equal(expectedJson);
     });
