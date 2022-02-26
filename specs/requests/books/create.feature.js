@@ -1,4 +1,4 @@
-const { factory, expect, serverConfig, Models } = require("../../helpers");
+const { expect, serverConfig, Models } = require("../../helpers");
 
 let request, response, book, author;
 
