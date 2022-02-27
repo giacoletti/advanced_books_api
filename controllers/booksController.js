@@ -32,6 +32,9 @@ const booksController = {
       }
     );
     response.json({ book: book });
+  },
+  async delete(request, response) {
+    response.json({ message: "Something" });
   }
 };
 

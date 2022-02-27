@@ -6,6 +6,7 @@ const { booksController } = require("../controllers");
 router
   .get("/books", booksController.index)
   .get("/books/:id", booksController.show)
-  .post("/books", booksController.create);
+  .post("/books", booksController.create)
+  .delete("/books/:id", booksController.delete);
 
 module.exports = router;
