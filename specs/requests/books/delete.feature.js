@@ -16,8 +16,8 @@ describe("DELETE /api/books/:id", () => {
     response = await request.delete(`/api/books/${book.id}`);
   });
 
-  it("is expected to respond with status 200", () => {
-    expect(response.status).to.equal(200);
+  it("is expected to respond with status 202", () => {
+    expect(response.status).to.equal(202);
   });
 
   it("is expected to respond with a successful message", () => {

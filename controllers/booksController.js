@@ -40,7 +40,7 @@ const booksController = {
       }
     });
     if (result === 1) {
-      response.json({ message: "Book successfully deleted." });
+      response.status(202).json({ message: "Book successfully deleted." });
     } else {
     }
   }
