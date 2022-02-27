@@ -34,7 +34,15 @@ const booksController = {
     response.json({ book: book });
   },
   async delete(request, response) {
-    response.json({ message: "Something" });
+    const result = await Book.destroy({
+      where: {
+        id: request.params.id
+      }
+    });
+    if (result === 1) {
+      response.json({ message: "Book successfully deleted." });
+    } else {
+    }
   }
 };
 

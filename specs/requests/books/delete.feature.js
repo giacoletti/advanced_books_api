@@ -2,7 +2,7 @@ const { factory, expect, serverConfig } = require("../../helpers");
 
 let request, response, book;
 
-describe.only("DELETE /api/books/:id", () => {
+describe("DELETE /api/books/:id", () => {
   before((done) => {
     request = serverConfig(done);
   });
@@ -20,7 +20,7 @@ describe.only("DELETE /api/books/:id", () => {
     expect(response.status).to.equal(200);
   });
 
-  it("is expected to include the title", () => {
+  it("is expected to respond with a successful message", () => {
     expect(response.body.message).to.equal("Book successfully deleted.");
   });
 });
