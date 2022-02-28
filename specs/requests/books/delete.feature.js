@@ -6,21 +6,53 @@ describe("DELETE /api/books/:id", () => {
   before((done) => {
     request = serverConfig(done);
   });
-  
+
   afterEach(async () => {
     await factory.cleanUp();
   });
 
-  beforeEach(async () => {
-    book = await factory.create("Book", { title: "The Divine Comedy" });
-    response = await request.delete(`/api/books/${book.id}`);
+  describe("successfully", () => {
+    beforeEach(async () => {
+      book = await factory.create("Book", { title: "The Divine Comedy" });
+      response = await request.delete(`/api/books/${book.id}`);
+    });
+
+    it("is expected to respond with status 202", () => {
+      expect(response.status).to.equal(202);
+    });
+
+    it("is expected to respond with a successful message", () => {
+      expect(response.body.message).to.equal("Book successfully deleted.");
+    });
   });
 
-  it("is expected to respond with status 202", () => {
-    expect(response.status).to.equal(202);
-  });
+  describe("unsuccessfully", () => {
+    describe("due to id not found", () => {
+      beforeEach(async () => {
+        response = await request.delete("/api/books/9999");
+      });
 
-  it("is expected to respond with a successful message", () => {
-    expect(response.body.message).to.equal("Book successfully deleted.");
+      it("is expected to respond with status 422", () => {
+        expect(response.status).to.equal(422);
+      });
+
+      it("is expected to respond with an error message", () => {
+        expect(response.body.message).to.equal("The book cannot be found.");
+      });
+    });
+
+    describe("due to invalid id", () => {
+      beforeEach(async () => {
+        response = await request.delete("/api/books/AIUDHSD");
+      });
+
+      it("is expected to respond with status 422", () => {
+        expect(response.status).to.equal(422);
+      });
+
+      it("is expected to respond with an error message", () => {
+        expect(response.body.message).to.equal("The book ID is not valid.");
+      });
+    });
   });
 });

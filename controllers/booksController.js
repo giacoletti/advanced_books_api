@@ -34,14 +34,19 @@ const booksController = {
     response.json({ book: book });
   },
   async delete(request, response) {
-    const result = await Book.destroy({
-      where: {
-        id: request.params.id
+    try {
+      const result = await Book.destroy({
+        where: {
+          id: request.params.id
+        }
+      });
+      if (result === 1) {
+        response.status(202).json({ message: "Book successfully deleted." });
+      } else {
+        response.status(422).json({ message: "The book cannot be found." });
       }
-    });
-    if (result === 1) {
-      response.status(202).json({ message: "Book successfully deleted." });
-    } else {
+    } catch (error) {
+      response.status(422).json({ message: "The book ID is not valid." });
     }
   }
 };
