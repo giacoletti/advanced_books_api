@@ -32,8 +32,8 @@ describe("DELETE /api/books/:id", () => {
         response = await request.delete("/api/books/9999");
       });
 
-      it("is expected to respond with status 422", () => {
-        expect(response.status).to.equal(422);
+      it("is expected to respond with status 404", () => {
+        expect(response.status).to.equal(404);
       });
 
       it("is expected to respond with an error message", () => {
@@ -46,8 +46,8 @@ describe("DELETE /api/books/:id", () => {
         response = await request.delete("/api/books/AIUDHSD");
       });
 
-      it("is expected to respond with status 422", () => {
-        expect(response.status).to.equal(422);
+      it("is expected to respond with status 400", () => {
+        expect(response.status).to.equal(400);
       });
 
       it("is expected to respond with an error message", () => {

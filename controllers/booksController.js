@@ -17,7 +17,11 @@ const booksController = {
   },
   async show(request, response) {
     const book = await Book.findByPk(request.params.id);
-    response.json({ book: book });
+    if (book) {
+      response.json({ book: book });
+    } else {
+      response.status(404).json({ message: "The book cannot be found." });
+    }
   },
   async create(request, response) {
     const book = await Book.create(
@@ -43,10 +47,10 @@ const booksController = {
       if (result === 1) {
         response.status(202).json({ message: "Book successfully deleted." });
       } else {
-        response.status(422).json({ message: "The book cannot be found." });
+        response.status(404).json({ message: "The book cannot be found." });
       }
     } catch (error) {
-      response.status(422).json({ message: "The book ID is not valid." });
+      response.status(400).json({ message: "The book ID is not valid." });
     }
   }
 };
