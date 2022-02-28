@@ -16,11 +16,15 @@ const booksController = {
     response.json({ books: books });
   },
   async show(request, response) {
-    const book = await Book.findByPk(request.params.id);
-    if (book) {
-      response.json({ book: book });
-    } else {
-      response.status(404).json({ message: "The book cannot be found." });
+    try {
+      const book = await Book.findByPk(request.params.id);
+      if (book) {
+        response.json({ book: book });
+      } else {
+        response.status(404).json({ message: "The book cannot be found." });
+      }
+    } catch (error) {
+      response.status(400).json({ message: "The book ID is not valid." });
     }
   },
   async create(request, response) {
