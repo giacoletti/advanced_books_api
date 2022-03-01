@@ -50,5 +50,21 @@ describe("PUT /api/books/:id", () => {
         expect(response.body.message).to.equal("The book cannot be found.");
       });
     });
+
+    describe("due to invalid id", () => {
+      beforeEach(async () => {
+        response = await request.put("/api/books/AHDKSAD").send({
+          book: { title: "The Little Prince" }
+        });
+      });
+
+      it("is expected to respond with status 400", () => {
+        expect(response.status).to.equal(400);
+      });
+
+      it("is expected to respond with an error message", () => {
+        expect(response.body.message).to.equal("The book ID is not valid.");
+      });
+    });
   });
 });

@@ -72,7 +72,9 @@ const booksController = {
       } else {
         response.status(404).json({ message: "The book cannot be found." });
       }
-    } catch (error) {}
+    } catch (error) {
+      response.status(400).json({ message: "The book ID is not valid." });
+    }
   }
 };
 
