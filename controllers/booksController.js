@@ -56,6 +56,21 @@ const booksController = {
     } catch (error) {
       response.status(400).json({ message: "The book ID is not valid." });
     }
+  },
+  async update(request, response) {
+    try {
+      const book = await Book.update(
+        { title: request.body.book.title },
+        {
+          where: {
+            id: request.params.id
+          }
+        }
+      );
+      if (book[0]) {
+        response.json({ message: "The book has been updated." });
+      }
+    } catch (error) {}
   }
 };
 
