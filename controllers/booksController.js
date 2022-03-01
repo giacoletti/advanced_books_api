@@ -69,6 +69,8 @@ const booksController = {
       );
       if (book[0]) {
         response.json({ message: "The book has been updated." });
+      } else {
+        response.status(404).json({ message: "The book cannot be found." });
       }
     } catch (error) {}
   }

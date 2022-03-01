@@ -33,4 +33,22 @@ describe("PUT /api/books/:id", () => {
       expect(response.body.message).to.equal("The book has been updated.");
     });
   });
+
+  describe("unsuccessfully", () => {
+    describe("due to id not found", () => {
+      beforeEach(async () => {
+        response = await request.put("/api/books/999999").send({
+          book: { title: "The Little Prince" }
+        });
+      });
+
+      it("is expected to respond with status 404", () => {
+        expect(response.status).to.equal(404);
+      });
+
+      it("is expected to respond with an error message", () => {
+        expect(response.body.message).to.equal("The book cannot be found.");
+      });
+    });
+  });
 });
