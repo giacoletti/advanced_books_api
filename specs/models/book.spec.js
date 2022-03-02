@@ -16,15 +16,15 @@ describe("Book", () => {
 
     describe("is expected to have properties:", () => {
       it("title:STRING", () => {
-        expect(tableAttributes).to.have.own
-          .property("title")
+        expect(tableAttributes)
+          .to.have.own.property("title")
           .that.has.property("type")
           .to.be.instanceOf(DataTypes.STRING);
       });
 
       it("AuthorId:INTEGER", () => {
-        expect(tableAttributes).to.have.own
-          .property("AuthorId")
+        expect(tableAttributes)
+          .to.have.own.property("AuthorId")
           .that.has.property("type")
           .to.be.instanceOf(DataTypes.INTEGER);
       });
@@ -32,10 +32,16 @@ describe("Book", () => {
 
     describe("is expected to have associations", () => {
       it("Author:BelongsTo", () => {
-        expect(associations).to.have.own
-          .property("author")
+        expect(associations)
+          .to.have.own.property("author")
           .to.be.instanceOf(Association.BelongsTo)
           .that.has.property("foreignKey", "AuthorId");
+      });
+    });
+
+    describe("is expected to have validations", () => {
+      it("title - mandatory", () => {
+        expect(tableAttributes.title.validate.notEmpty).to.eq(true);
       });
     });
   });
@@ -55,8 +61,8 @@ describe("Book", () => {
 
     describe("is expected to have association accessors", () => {
       it("for the Author association", () => {
-        expect(subject).to
-          .respondTo("getAuthor")
+        expect(subject)
+          .to.respondTo("getAuthor")
           .and.respondTo("setAuthor")
           .and.respondTo("createAuthor");
       });
