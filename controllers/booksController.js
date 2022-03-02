@@ -28,18 +28,22 @@ const booksController = {
     }
   },
   async create(request, response) {
-    const book = await Book.create(
-      {
-        title: request.body.book.title,
-        author: {
-          name: request.body.book.author
+    try {
+      const book = await Book.create(
+        {
+          title: request.body.book.title,
+          author: {
+            name: request.body.book.author
+          }
+        },
+        {
+          include: [{ association: Book.associations.author }]
         }
-      },
-      {
-        include: [{ association: Book.associations.author }]
-      }
-    );
-    response.json({ book: book });
+      );
+      response.json({ book: book });
+    } catch (error) {
+      response.status(422).json({ message: error.message });
+    }
   },
   async delete(request, response) {
     try {
