@@ -30,6 +30,12 @@ describe("Author", () => {
           .to.be.instanceOf(Association.HasMany);
       });
     });
+
+    describe("is expected to have validations", () => {
+      it("name - mandatory", () => {
+        expect(tableAttributes.name.validate.notEmpty).to.eq(true);
+      });
+    });
   });
 
   describe("Instance", () => {
