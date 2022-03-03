@@ -12,7 +12,6 @@ describe("GET /api/books", () => {
   });
 
   beforeEach(async () => {
-    // create your factories here
     author = await factory.create("Author");
     books = await factory.createMany("Book", 5, [
       { title: "The Bible", AuthorId: author.id }
