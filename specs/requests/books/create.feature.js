@@ -82,5 +82,23 @@ describe("POST /api/books", () => {
         );
       });
     });
+
+    describe("due to missing author", () => {
+      beforeEach(async () => {
+        response = await request.post("/api/books").send({
+          book: { title: "1984" }
+        });
+      });
+
+      it("is expected to respond with status 422", () => {
+        expect(response.status).to.equal(422);
+      });
+
+      it("is expected to respond with an error message", () => {
+        expect(response.body.message).to.equal(
+          "notNull Violation: Book.author cannot be null"
+        );
+      });
+    });
   });
 });
