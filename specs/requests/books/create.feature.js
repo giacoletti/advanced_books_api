@@ -96,7 +96,7 @@ describe("POST /api/books", () => {
 
       it("is expected to respond with an error message", () => {
         expect(response.body.message).to.equal(
-          "notNull Violation: Book.author cannot be null"
+          "notNull Violation: Author.name cannot be null"
         );
       });
     });
